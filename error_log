@@ -1,0 +1,1 @@
+[05-Mar-2022 16:51:32 Africa/Cairo] PHP Fatal error:  Cannot declare class App\Http\Livewire\Reports\SalesReport, because the name is already in use in /home/harvestc/testsys/app/Http/Livewire/Reports/_SalesReport.php on line 25

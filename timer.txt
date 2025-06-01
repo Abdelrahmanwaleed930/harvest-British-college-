@@ -1,0 +1,73 @@
+$date = date('F j, Y, H:i:s',(strtotime(date('Y-m-d H:i:s')) + $exam_user->remain_duration));
+        $dt = Carbon::parse($date);
+        $mazadTime = $dt;
+
+controller
+
+var countDownDate = new Date("{{$mazadTime->format("Y-m-d H:i:s")}}").getTime();
+        var now = new Date("{{ date('Y-m-d H:i:s') }}").getTime();
+        
+        var distance = countDownDate - now;
+        
+        var second = 1000,
+        minute = second * 60,
+        hour = minute * 60;
+        day = hour * 24;
+        
+        var hours = Math.floor((distance % (day)) / (hour));
+        var minutes = Math.floor((distance % (hour)) / (minute));
+        var seconds = Math.floor((distance % (minute)) / second);
+        
+        var x = setInterval(function() {
+            seconds--;
+            if(hours == 0 && seconds == 0 && minutes == 0){
+                //$('#join_form').remove();
+                clearInterval(x);
+                window.location.href = "{{ url('finishExams') }}?exam_id={{ $exam_user->id }}&status=finish";
+            }
+            else{
+                if(seconds < 0){
+                    seconds = 59;
+                    if(hours >= 0 && minutes >= 0){
+                        minutes--;
+                    }
+                    
+                }
+                if(minutes < 0){
+                    minutes = 59;
+                    if(hours >= 0){
+                        hours--;
+                    }
+                    
+                }
+                if(hours > 0){
+                    document.getElementById("timer").innerHTML = addZero(hours) + ":" + addZero(minutes) + ":" + addZero(seconds);
+                }
+                else{
+                    document.getElementById("timer").innerHTML = addZero(minutes) + ":" + addZero(seconds);
+                }
+            }
+          
+        }, second);
+        
+        function addZero(num){
+            if(num > 9){
+                return num;
+            }else{
+                return "0"+num;
+            }
+        }
+
+javascript
+
+<div id="countdown">
+						<p id="timer"></p>
+					</div>
+					
+					
+					$remain_duration = explode(':',$request->time);
+            if(count($remain_duration) > 2){
+                $time = ($remain_duration[0] * 60 * 60) + ($remain_duration[1] * 60) + $remain_duration[2];
+            }else{
+                $time = ($remain_duration[0] * 60) + $remain_duration[1];
+            }
